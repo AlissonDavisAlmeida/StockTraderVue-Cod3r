@@ -12,7 +12,7 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn color="blue lighten-4" flat>Finalizar o dia</v-btn>
+      <v-btn color="blue lighten-4" @click="endDay" flat>Finalizar o dia</v-btn>
       <v-menu offset-y>
         <v-btn flat small color="blue lighten-4" slot="activator">Salvar e Carregar</v-btn>
         <v-list >
@@ -24,13 +24,30 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      <v-layout align-center>
+        <span class="text-uppercase white--text text--darken-2 ml-3">
+          Saldo:  {{ funds | currency}}
+        </span>
+      </v-layout>
     </v-toolbar-items>
   </v-toolbar>
 </template>
 
 <script>
+import {mapActions} from "vuex"
 export default {
+  computed: {
+    funds(){
+      return this.$store.getters.funds
+    }
+  },
+  methods:{
+    ...mapActions(["randomizeStocks"]),
+    endDay(){
+      this.randomizeStocks()
+    }
 
+  }
 }
 </script>
 

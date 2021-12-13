@@ -1,5 +1,5 @@
 <template>
- <v-layout row wrap>
+ <v-layout row wrap class="">
    <Stock v-for="(stock, index) in stocks" :key="index" :stock="stock"/>
  </v-layout>
 </template>
