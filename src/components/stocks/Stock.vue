@@ -17,7 +17,7 @@
           :error="insufficientFunds"
           v-model.number="quantidade"
         ></v-text-field>
-        <v-btn color="primary" class="white--text" @click="buyStock" :disabled = " insufficientFunds||quantidade < 1 || !Number.isInteger(quantidade)">
+        <v-btn color="primary" class="white--text" @click="buyStock" :disabled = " insufficientFunds|| quantidade < 1 || !Number.isInteger(quantidade)">
           {{insufficientFunds? "Saldo Insuficiente": "Comprar"}}
           </v-btn>
       </v-container>

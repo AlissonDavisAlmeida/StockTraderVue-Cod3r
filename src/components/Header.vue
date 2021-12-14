@@ -15,12 +15,12 @@
       <v-btn color="blue lighten-4" @click="endDay" flat>Finalizar o dia</v-btn>
       <v-menu offset-y>
         <v-btn flat small color="blue lighten-4" slot="activator">Salvar e Carregar</v-btn>
-        <v-list >
-          <v-list-tile  avatar>
-            <v-list-tile-title >Salvar Dados</v-list-tile-title>
+        <v-list class="lista" rounded>
+          <v-list-tile class="listaSalvar" @click="saveData" avatar>
+            <v-list-tile-title  >Salvar Dados</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-title>Carregar os Dados</v-list-tile-title>
+          <v-list-tile class="listaCarregar" @click="loadDataLocal" avatar>
+            <v-list-tile-title >Carregar os Dados</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -42,15 +42,42 @@ export default {
     }
   },
   methods:{
-    ...mapActions(["randomizeStocks"]),
+    ...mapActions(["randomizeStocks", "loadData"]),
     endDay(){
       this.randomizeStocks()
+    },
+    saveData(){
+      const {funds, stockPortfolio, stocks} = this.$store.getters
+      this.$http.put("data.json", {funds: funds, stockPortfolio:stockPortfolio, stocks:stocks})
+
+    },
+    loadDataLocal(){
+      this.loadData()
     }
 
   }
 }
 </script>
 
-<style>
+  <style>
+.lista{
+  cursor: pointer;
+  
+}
+.listaSalvar, .listaCarregar{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.listaSalvar:hover, .listaCarregar:hover{
+
+  background-color: rgb(79, 79, 250);
+  color: white;
+  transition: ease-in-out .5s;
+  transform: scale(1.05);
+  border-radius: 20px;
+}
 </style>
